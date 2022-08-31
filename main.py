@@ -82,6 +82,7 @@ def find_paycheck_code(screenshot: str) -> int:
     
     return -1
 
+# Checkes if the payday is ready
 def is_payday_ready() -> bool:
     is_ready = 0
 
@@ -101,27 +102,33 @@ def is_payday_ready() -> bool:
         
     return True if is_ready >= 2 else False
 
+# Opens the /signcheck dialog
 def open_payday_dialog():
     keyboard_press('t')
     keyboard_write('/signcheck')
     keyboard_press('enter')
 
-import pyautogui
-
 while True:
-    if is_payday_ready():
-        trigger_mouse(move_mouse, randint(-1000, 1000), randint(-1000, 1000), 0, 0)
+    if is_payday_ready(): 
+        # Attempt twenty times to find the payday code, if it is unable to, something went terribly wrong
+        # Will move the mouse till it gets the 'sweet spot' or 'count' reaches zero
+        payday_code = -1
+        count = 20
 
-        wait_seconds(0.5)
-        
-        open_payday_dialog()
+        while payday_code == -1 and count > 0:
+            keyboard_press('esc')
+            
+            trigger_mouse(move_mouse, randint(-1000, 1000), randint(-1000, 1000), 0, 0)
 
-        wait_seconds(1)
+            open_payday_dialog()
 
-        payday_screenshot = take_screenshot()
-        screenshot_text = read_screenshot(payday_screenshot)
-        text_file = save_screenshot_text(payday_screenshot, screenshot_text)
-        payday_code = find_paycheck_code(text_file)
+            wait_seconds(1)
+
+            payday_screenshot = take_screenshot()
+            screenshot_text = read_screenshot(payday_screenshot)
+            text_file = save_screenshot_text(payday_screenshot, screenshot_text)
+            payday_code = find_paycheck_code(text_file)
+            count -= 1
 
         macro('ctrl', 'a')
 
