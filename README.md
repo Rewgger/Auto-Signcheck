@@ -34,3 +34,7 @@ The rest should be taken care of (not tested) as I've made it so every missing m
 
 # Usage
 I recommend using this when you are AFK, and do not tab out, otherwise the code won't work. The script is continuously reading the last six lines from your chat log text file. If it notices that the text was payday string, it will automatically send input to open the dialog(t/signcheck). Once the dialog is opened, it will take a screenshot of your screen, save it inside `Screenshots` folder. Don't worry, there won't be more than one `Screenshot.png` and one `Screenshot.txt` files, I realised it would be a bad idea because of storage. Right before the screenshot is taken, it will move your mouse for random amount(`-1000 - 1000` on both axis). Why? Because sometimes the colors get in the way (at least I guess that's the issue), and upon reading the text from picture it fails to detect the `Check code:` string. So I decided to randomly move the mouse till it gets to the sweet spot before sending the payday code, and hitting enter.
+
+# Video
+https://user-images.githubusercontent.com/45196430/187726679-a8764c91-31e8-4239-b32e-4b92ee12e556.mov
+
